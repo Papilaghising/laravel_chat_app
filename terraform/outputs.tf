@@ -80,9 +80,9 @@ output "record_fqdn" {
 
 
 output "secret_arn" {
-  value = module.db.db_instance_arn # Adjust based on your module's output
+  value = module.db.db_instance_master_user_secret_arn
 }
 
 output "secret_id" {
-  value = replace(module.db.db_instance_arn, "arn:aws:secretsmanager:us-east-1:426857564226:secret:", "")
+  value = replace(module.db.db_instance_master_user_secret_arn, "arn:aws:secretsmanager:us-east-1:***:secret:", "")
 }
