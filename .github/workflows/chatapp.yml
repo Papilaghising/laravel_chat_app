@@ -18,8 +18,8 @@ env:
   AWS_REGION: "us-east-1"
   backendS3Bucket: "8586-terraform-state"
   backendS3StateFile: ${{ secrets.ACCOUNT_ID }}/${{ github.ref_name }}
-  devDbPassword: rds!db-5d83f992-2d89-4127-b155-2979896cf593
-  # prodDbPassword: 
+  # devSecretId: rds!db-5d83f992-2d89-4127-b155-2979896cf593
+  # prodSecretId: how to fetch this secret_id of the secrets in secret manager managed and created by rds
 
 
 jobs:  
@@ -66,19 +66,27 @@ jobs:
         
             # ECR Registry name
             ecr_name=$(terraform output --json -state=$state_file_name | jq -r '.ecr_name.value')
-            echo "ecr_name=$ecr_name" >> "$GITHUB_ENV"  
+            echo "ecr_name=$ecr_name" >> "$GITHUB_ENV"
+            
+            # secret id dev_db
+            dev_sid=$(terraform output --json -state=$state_file_name | jq -r '.secret_id.value')
+            echo "dev_sid=$dev_sid" >> "$GITHUB_ENV"
+            
+            # secret id prod_db
+            prod_sid=$(terraform output --json -state=$state_file_name | jq -r '.secret_id.value')
+            echo "prod_sid=$prod_sid" >> "$GITHUB_ENV"
 
       - name: retrieve secret value development server database
         run: |
         if: github.ref_name == 'dev'
-          password=$(aws secretsmanager get-secret-value --secret-id '${{ env.devDbPassword }}' --query SecretString --output text | jq -r '.password')
+          password=$(aws secretsmanager get-secret-value --secret-id '${{ env.dev_sid }}' --query SecretString --output text | jq -r '.password')
           echo "db_password=$password" >> "$GITHUB_ENV"
           echo "app_url=https://devchat.sandbox.adex.ltd" >> "$GITHUB_ENV"
           
       - name: retrieve secret value production server database
         run: |
         if: github.ref_name == 'main'
-          password=$(aws secretsmanager get-secret-value --secret-id '${{ env.prodDbPassword }}' --query SecretString --output text | jq -r '.password')
+          password=$(aws secretsmanager get-secret-value --secret-id '${{ env.prod_sid }}' --query SecretString --output text | jq -r '.password')
           echo "db_password=$password" >> "$GITHUB_ENV"
           echo "app_url=https://chat.sandbox.adex.ltd" >> "$GITHUB_ENV"
 

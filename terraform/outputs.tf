@@ -74,3 +74,15 @@ output "record_fqdn" {
   description = "The fully qualified domain name of the Route 53 record"
   value       = aws_route53_record.dns.fqdn
 }
+
+
+
+
+
+output "secret_arn" {
+  value = module.db.db_instance_arn # Adjust based on your module's output
+}
+
+output "secret_id" {
+  value = replace(module.db.db_instance_arn, "arn:aws:secretsmanager:us-east-1:426857564226:secret:", "")
+}
