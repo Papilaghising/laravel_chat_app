@@ -38,23 +38,23 @@
 
 - name: log in to Amazon ECRr 
   shell: |
-    # aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 426857564226.dkr.ecr.us-east-1.amazonaws.com/{{ ecr_name }} 
-    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 426857564226.dkr.ecr.us-east-1.amazonaws.com/dev-chatapp-ecr
+    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 426857564226.dkr.ecr.us-east-1.amazonaws.com/{{ ecr_name }} 
+    # aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 426857564226.dkr.ecr.us-east-1.amazonaws.com/dev-chatapp-ecr
    
 
 - name: Pull Docker image
   docker_image:
     name: "426857564226.dkr.ecr.us-east-1.amazonaws.com/{{ ecr_name }}"
-    # tag: "{{ docker_image_tag }}"
-    tag: 259c9eb90016384f3c7a03434e5d014a1df5281f-9944520578-1
+    tag: "{{ docker_image_tag }}"
+    # tag: 259c9eb90016384f3c7a03434e5d014a1df5281f-9944520578-1
     source: pull
 
 
 - name: Run Docker container
   docker_container:
     name: laravel_app
-    # image: "426857564226.dkr.ecr.us-east-1.amazonaws.com/{{ ecr_name }}:{{ docker_image_tag }}"
-    image: "426857564226.dkr.ecr.us-east-1.amazonaws.com/dev-chatapp-ecr:259c9eb90016384f3c7a03434e5d014a1df5281f-9944520578-1"
+    image: "426857564226.dkr.ecr.us-east-1.amazonaws.com/{{ ecr_name }}:{{ docker_image_tag }}"
+    # image: "426857564226.dkr.ecr.us-east-1.amazonaws.com/dev-chatapp-ecr:259c9eb90016384f3c7a03434e5d014a1df5281f-9944520578-1"
     state: started
     ports:
       - "8000:8000"
