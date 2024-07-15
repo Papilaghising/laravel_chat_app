@@ -18,7 +18,7 @@ env:
   AWS_REGION: "us-east-1"
   backendS3Bucket: "8586-terraform-state"
   backendS3StateFile: ${{ secrets.ACCOUNT_ID }}/${{ github.ref_name }}
-  devDbPassword: rds!db-a9f2c797-8fb3-4a1f-ac3d-0e91f50d2315
+  devDbPassword: rds!db-5d83f992-2d89-4127-b155-2979896cf593
   # prodDbPassword: 
 
 
