@@ -69,7 +69,7 @@ jobs:
             echo "ecr_name=$ecr_name" >> "$GITHUB_ENV"
             
             # secret id dev_db
-            dev_sid=$(terraform output --json -state=$state_file_name | jq -r '.secret_id.value')
+            dev_sid=$(terraform output --json -state=$state_file_name | jq -r '.regex("secret:([^:]+)$", module.db.db_instance_master_user_secret_arn)[0]')
             echo "dev_sid=$dev_sid" >> "$GITHUB_ENV"
             
             # secret id prod_db
