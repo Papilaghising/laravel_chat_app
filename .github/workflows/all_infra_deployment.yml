@@ -46,7 +46,7 @@ jobs:
           terraform init -backend-config="bucket=${{ env.backendS3Bucket }}" -backend-config="key=${{ env.backendS3StateFile }}" -backend-config="region=${{ env.AWS_REGION }}"
           
       - name: Terraform plan
-        if: github.ref_name == 'laravel'
+        if: github.ref_name == 'dev'
         run: |
           cd terraform
           terraform plan -var-file=dev.tfvars 
@@ -58,7 +58,7 @@ jobs:
           terraform plan -var-file=prod.tfvars
         
       - name: Apply Terraform Changes
-        if: github.ref_name == 'laravel'
+        if: github.ref_name == 'dev'
         run: |
           cd terraform
           terraform apply -var-file=dev.tfvars -auto-approve
