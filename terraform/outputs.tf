@@ -83,6 +83,10 @@ output "secret_arn" {
   value = module.db.db_instance_master_user_secret_arn
 }
 
+# output "secret_id" {
+#   value = replace(module.db.db_instance_master_user_secret_arn, "arn:aws:secretsmanager:us-east-1:***:secret:", "")
+# }
+
 output "secret_id" {
-  value = replace(module.db.db_instance_master_user_secret_arn, "arn:aws:secretsmanager:us-east-1:***:secret:", "")
+  value = regex("secret:([^:]+)$", module.db.db_instance_master_user_secret_arn)[0]
 }
