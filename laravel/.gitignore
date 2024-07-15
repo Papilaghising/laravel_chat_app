@@ -4,7 +4,7 @@
 /public/avatar
 /storage/*.key
 /vendor
-.env
+ .envv
 .env.backup
 .phpunit.result.cache
 Homestead.json
