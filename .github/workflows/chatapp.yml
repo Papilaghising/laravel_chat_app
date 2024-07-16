@@ -18,8 +18,6 @@ env:
   AWS_REGION: "us-east-1"
   backendS3Bucket: "8586-terraform-state"
   backendS3StateFile: ${{ secrets.ACCOUNT_ID }}/${{ github.ref_name }}
-  # devSecretId: rds!db-5d83f992-2d89-4127-b155-2979896cf593
-  # prodSecretId: how to fetch this secret_id of the secrets in secret manager managed and created by rds
 
 
 jobs:
