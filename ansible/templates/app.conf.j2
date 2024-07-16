@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name _ chatapp.sandbox.adex.ltd;
+    server_name_ {{ domain_name }};
 
     location / {
         proxy_pass http://localhost:8000;

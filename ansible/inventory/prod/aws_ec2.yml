@@ -4,6 +4,6 @@ plugin: aws_ec2
 regions:
   - us-east-1
 filters:
-  tag:Name: "dev-chatapp-server"
+  tag:Name: "prod-chatapp-server"
 hostnames:
   - instance-id
