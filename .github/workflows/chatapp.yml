@@ -106,7 +106,7 @@ jobs:
             aws s3 cp s3://${{ env.backendS3Bucket }}/${{ env.backendS3StateFile }} $state_file_name
             
             # DB Endpoint
-            db_endpoint=$(terraform output --json -state=$state_file_name | jq -r '.db_host.value')
+            db_endpoint=$(terraform output --json -state=$state_file_name | jq -r '.db_instance_endpoint.value')
             echo "db_endpoint=$db_endpoint" >> "$GITHUB_ENV"
             
             # DB Name
@@ -129,12 +129,11 @@ jobs:
         run: |
           password=$(aws secretsmanager get-secret-value --secret-id '${{ env.secret_id }}' --query SecretString --output text | jq -r '.password')
           echo "db_password=$password" >> "$GITHUB_ENV"
-          echo "app_url=http://dev-chat.sandbox.adex.ltd" >> "$GITHUB_ENV"
 
       - name: Create .env for application
         run: |
           cat << EOF > .env
-          APP_URL=${{ env.app_url }}
+          APP_URL=chat.sandbox.adex.ltd
           APP_NAME=Laravel
           APP_ENV=local
           APP_KEY=base64:MFZBNV/3ipBTpWhDq1t4N7BSfmv8lY+noBb4xZs/LVY=
