@@ -20,5 +20,5 @@
  
 - name: obtaining ssl certificate
   command: >
-    certbot --nginx --agree-tos -d {{ domain_name }}
+    certbot --nginx -d  {{ domain_name }} --register-unsafely-without-email --agree-tos --noninteractive --redirect
   notify: Restart nginx
