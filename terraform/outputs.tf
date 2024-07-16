@@ -55,7 +55,7 @@ output "db_username" {
 
 output "db_instance_endpoint" {
   description = "The connection endpoint"
-  value       = substr(module.db.db_instance_endpoint, 0, length(module.rds.db_instance_endpoint) - 5)
+  value       = substr(module.db.db_instance_endpoint, 0, length(module.db.db_instance_endpoint) - 5)
 }
 
 ########################################
