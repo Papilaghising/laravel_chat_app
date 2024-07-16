@@ -90,8 +90,8 @@ output "secret_arn" {
 
 output "secret_id" {
   value = substr(
-    regex("secret:([^:]+)$", module.db.db_instance_master_user_secret_arn),
+    regex("secret:([^:]+)$", module.db.db_instance_master_user_secret_arn)[0],
     0,
-    length(regex("secret:([^:]+)$", module.db.db_instance_master_user_secret_arn)) - 7
+    length(regex("secret:([^:]+)$", module.db.db_instance_master_user_secret_arn)[0]) - 7
   )
 }
