@@ -14,7 +14,7 @@ module "db" {
   maintenance_window          = "Mon:00:00-Mon:03:00"
   backup_window               = "03:00-06:00"
   monitoring_interval         = "30"
-  monitoring_role_name        = "chatapp-RDSMonitoringRole"
+  monitoring_role_name        = "${var.environment}chatapp-RDSMonitoringRole"
   create_monitoring_role      = true
   create_db_subnet_group      = true
   create_db_option_group      = false
