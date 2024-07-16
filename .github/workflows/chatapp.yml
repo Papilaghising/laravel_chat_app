@@ -1,4 +1,4 @@
-name: configuring chatapp in ec2
+name: configure chatapp in ec2
 
 on:
   push:
