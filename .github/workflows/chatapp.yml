@@ -68,27 +68,21 @@ jobs:
             ecr_name=$(terraform output --json -state=$state_file_name | jq -r '.ecr_name.value')
             echo "ecr_name=$ecr_name" >> "$GITHUB_ENV"
             
-            # secret id dev_db
-            dev_sid=$(terraform output --json -state=$state_file_name | jq -r '.regex("secret:([^:]+)$", module.db.db_instance_master_user_secret_arn)[0]')
-            echo "dev_sid=$dev_sid" >> "$GITHUB_ENV"
-            
-            # secret id prod_db
-            prod_sid=$(terraform output --json -state=$state_file_name | jq -r '.secret_id.value')
-            echo "prod_sid=$prod_sid" >> "$GITHUB_ENV"
+            # Secret id 
+            secret_id=$(terraform output --json -state=$state_file_name | jq -r '.secret_id.value')
+            echo "secret_id=$secret_id" >> "$GITHUB_ENV"
 
       - name: retrieve secret value development server database
         run: |
-        if: github.ref_name == 'dev'
-          password=$(aws secretsmanager get-secret-value --secret-id '${{ env.dev_sid }}' --query SecretString --output text | jq -r '.password')
+          password=$(aws secretsmanager get-secret-value --secret-id '${{ env.secret_id }}' --query SecretString --output text | jq -r '.password')
           echo "db_password=$password" >> "$GITHUB_ENV"
           echo "app_url=https://devchat.sandbox.adex.ltd" >> "$GITHUB_ENV"
           
-      - name: retrieve secret value production server database
-        run: |
-        if: github.ref_name == 'main'
-          password=$(aws secretsmanager get-secret-value --secret-id '${{ env.prod_sid }}' --query SecretString --output text | jq -r '.password')
-          echo "db_password=$password" >> "$GITHUB_ENV"
-          echo "app_url=https://chat.sandbox.adex.ltd" >> "$GITHUB_ENV"
+      # - name: retrieve secret value production server database
+      #   run: |
+      #     password=$(aws secretsmanager get-secret-value --secret-id '${{ env.prod_sid }}' --query SecretString --output text | jq -r '.password')
+      #     echo "db_password=$password" >> "$GITHUB_ENV"
+      #     echo "app_url=https://chat.sandbox.adex.ltd" >> "$GITHUB_ENV"
 
 
       - name: Create .env for application
