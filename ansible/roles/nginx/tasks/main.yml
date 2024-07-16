@@ -7,8 +7,19 @@
 
 - name: copy configuration file
   ansible.builtin.template:
-    src: laravel-app.conf.j2
+    # src: {{ chat_app }}-app.conf.j2
+    src: dev-app.conf.j2
     dest: /etc/nginx/sites-enabled/default
 
-# - name: install certbot
-  
+- name: install certbot
+  apt:
+    name:
+      - certbot
+      - python3-certbot-nginx
+    state: present
+  notify: Restart nginx
+ 
+- name: obtaining ssl certificate
+  command: >
+    certbot --nginx -n --agree-tos  --email papila.ghising@adex.ltd -d devchat.sandbox.adex.ltd
+  notify: Restart nginx

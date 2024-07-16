@@ -5,7 +5,7 @@
 
   roles:
     - nginx
-    - docker  
+    # - docker  
   vars:
     ansible_user: ubuntu
     ansible_connection: aws_ssm
@@ -13,5 +13,5 @@
     ansible_aws_ssm_bucket_name: 8586-terraform-state
     docker_image_tag: "{{ docker_image_tag }}"
     ecr_name: "{{ ecr_name }}"
-
+    chat_app: "{{ environment }}"
     
