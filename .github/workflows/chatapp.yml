@@ -68,8 +68,7 @@ jobs:
           terraform apply -var-file=prod.tfvars -auto-approve
 
       - name: Destroy all the Terraform Resources
-        if: github.ref_name == 'dev'
-        # if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           cd terraform
           terraform destroy -var-file=dev.tfvars -auto-approve
@@ -132,7 +131,7 @@ jobs:
       - name: Create .env for application
         run: |
           cat << EOF > .env
-          APP_URL=chat.sandbox.adex.ltd
+          APP_URL=
           APP_NAME=Laravel
           APP_ENV=local
           APP_KEY=base64:MFZBNV/3ipBTpWhDq1t4N7BSfmv8lY+noBb4xZs/LVY=

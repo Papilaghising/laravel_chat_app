@@ -16,6 +16,15 @@ module "ec2" {
     SSM = data.aws_iam_policy.ssm.arn
     ECR = data.aws_iam_policy.ecr.arn
   }
+  ebs_block_device = [
+    {
+      device_name = "/dev/sdf"
+      volume_type = "gp3"
+      volume_size = 50
+      throughput  = 200
+      encrypted   = false
+      }
+  ]
 }
 
 resource "aws_eip" "ec2" {

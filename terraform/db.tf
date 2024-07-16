@@ -6,7 +6,7 @@ module "db" {
   engine                      = "mysql"
   engine_version              = "8.0.37"
   instance_class              = "db.t3.micro"
-  allocated_storage           = 5
+  allocated_storage           = 20
   db_name                     = "laravel"
   username                    = "laravel"
   port                        = "3306"
@@ -17,6 +17,7 @@ module "db" {
   monitoring_role_name        = "${var.environment}chatapp-RDSMonitoringRole"
   create_monitoring_role      = true
   create_db_subnet_group      = true
+  manage_master_user_password_rotation= false
   create_db_option_group      = false
   subnet_ids                  = [module.vpc.private_subnets[0], module.vpc.private_subnets[1]]
   # allow_major_version_upgrade = true
