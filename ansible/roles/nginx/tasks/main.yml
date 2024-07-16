@@ -20,5 +20,5 @@
  
 - name: obtaining ssl certificate
   command: >
-    certbot --nginx -n --agree-tos  --email papila.ghising@adex.ltd -d chat.sandbox.adex.ltd
+    certbot --nginx --agree-tos -d {{ domain_name }}
   notify: Restart nginx
