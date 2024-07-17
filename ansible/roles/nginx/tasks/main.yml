@@ -17,8 +17,14 @@
       - python3-certbot-nginx
     state: present
   notify: Restart nginx
- 
+
+- name: Check if SSL certificate already exists
+  stat:
+    path: /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem
+  register: ssl_cert
+
 - name: obtaining ssl certificate for the server
   command: >
-    certbot --nginx -d  {{ domain_name }} --register-unsafely-without-email --agree-tos --noninteractive --redirect
+    certbot --nginx -d {{ domain_name }} --register-unsafely-without-email --agree-tos --noninteractive --redirect
   notify: Restart nginx
+  when: not ssl_cert.stat.exists
