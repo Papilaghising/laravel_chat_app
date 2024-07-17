@@ -3,7 +3,7 @@ provider "aws" {
   default_tags {
     tags = {
       silo      = "intern"
-      project   = "vpc-terraform" #laravel
+      project   = "laravel-chatapp" #laravel
       terraform = true
       owner     = "papila.ghising"
     }

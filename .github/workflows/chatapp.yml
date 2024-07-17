@@ -187,7 +187,7 @@ jobs:
         run: |
           mv .env ./laravel
           ls -la
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ env.ecr_name }}
+          aws ecr get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ env.ecr_name }}
           docker build  -f ./laravel/Dockerfile -t  ${{ secrets.ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ env.ecr_name }}:${{ env.IMAGE_TAG }} ./laravel
           docker push ${{ secrets.ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ env.ecr_name }}:${{ env.IMAGE_TAG }}
 

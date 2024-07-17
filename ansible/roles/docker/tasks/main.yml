@@ -38,7 +38,7 @@
 
 - name: log in to Amazon ECRr 
   shell: |
-    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 426857564226.dkr.ecr.us-east-1.amazonaws.com/{{ ecr_name }} 
+    aws ecr get-login-password --region {{ region }} | docker login --username AWS --password-stdin 426857564226.dkr.ecr.us-east-1.amazonaws.com/{{ ecr_name }} 
    
 
 - name: Pull Docker image

@@ -23,5 +23,5 @@ module "db" {
   # allow_major_version_upgrade = true
   family                      = "mysql8.0"
   major_engine_version        = "8.0"
-  deletion_protection         = false
+  deletion_protection         = true
 }

@@ -13,16 +13,7 @@ module "sns_topic" {
       }]
       effect = "Allow"
     },
-    # sub = {
-    #   actions = ["sns:Publish"]
-    #   principals = [{
-    #     type        = "Service"
-    #     identifiers = ["cloudwatch.amazonaws.com"]
-    #   }]
-    #   effect = "Allow"
-    # }
   }
-
   subscriptions = {
     email = {
       protocol = "email"

@@ -4,8 +4,8 @@
   gather_facts: true
 
   roles:
-    # - nginx
-    - docker  
+    - docker
+    - nginx  
   vars:
     ansible_user: ubuntu
     ansible_connection: aws_ssm
@@ -14,4 +14,5 @@
     docker_image_tag: "{{ docker_image_tag }}"
     ecr_name: "{{ ecr_name }}"
     domain_name: "{{ domain_name }}"
+    region: "us-east-1"
     

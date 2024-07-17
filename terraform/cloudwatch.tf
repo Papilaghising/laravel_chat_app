@@ -1,6 +1,6 @@
 module "status-check-alarm" {
   source              = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
-  alarm_name          = "${var.environment}-chatappp-status-fail"
+  alarm_name          = "${var.environment}-chatappp-status-check"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "2"
   metric_name         = "StatusCheckFailed_Instance"
@@ -15,7 +15,7 @@ module "status-check-alarm" {
 
 module "cpu-alarm" {
   source              = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
-  alarm_name          = "${var.environment}-chatapp-cpu-alm-frontend"
+  alarm_name          = "${var.environment}-chatapp-cpu-alarm"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = "CPUUtilization"
