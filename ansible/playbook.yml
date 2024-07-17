@@ -5,7 +5,7 @@
 
   roles:
     - nginx
-    - docker  
+    # - docker  
   vars:
     ansible_user: ubuntu
     ansible_connection: aws_ssm

@@ -2,6 +2,8 @@ server {
     listen 80;
     server_name {{ domain_name }};
 
+    add_header 'Content-Security-Policy' 'upgrade-insecure-requests';
+
     location / {
         proxy_pass http://localhost:8000;
         proxy_http_version 1.1;
