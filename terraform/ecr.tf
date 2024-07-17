@@ -4,3 +4,4 @@ module "ecr" {
   repository_name         = "${var.environment}-chatapp-ecr"
   create_lifecycle_policy = false
 }
+
