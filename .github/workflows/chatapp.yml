@@ -68,8 +68,8 @@ jobs:
           terraform apply -var-file=prod.tfvars -auto-approve
 
       - name: Destroy all the Terraform Resources
-        if: github.ref_name == 'dev'
-      #  if: github.event_name == 'workflow_dispatch'
+        # if: github.ref_name == 'dev'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           cd terraform
           terraform destroy -var-file=dev.tfvars -auto-approve
@@ -200,11 +200,11 @@ jobs:
         if: github.ref_name == 'dev'
         run: |
           cd ansible
-          ansible-playbook -i inventory/dev/aws_ec2.yml playbook.yml -e '{"docker_image_tag": "${{ env.IMAGE_TAG }}", "ecr_name": "${{ env.ecr_name}}" , "domain_name": "dev-chat.sandbox.adex.ltd"}'  
+          ansible-playbook -i inventory/dev/aws_ec2.yml playbook.yml -e '{"docker_image_tag": "${{ env.IMAGE_TAG }}", "ecr_name": "${{ env.ecr_name}}" , "domain_name": "devchatapp.sandbox.adex.ltd"}'  
 
 
       - name: run ansible playbook in production environment
         if: github.ref_name == 'main'
         run: |
           cd ansible 
-          ansible-playbook -i inventory/prod/aws_ec2.yml playbook.yml -e '{"docker_image_tag": "${{ env.IMAGE_TAG }}", "ecr_name": "${{ env.ecr_name}}", "domain_name": "chat-app.sandbox.adex.ltd"}'
+          ansible-playbook -i inventory/prod/aws_ec2.yml playbook.yml -e '{"docker_image_tag": "${{ env.IMAGE_TAG }}", "ecr_name": "${{ env.ecr_name}}", "domain_name": "chatapp.sandbox.adex.ltd"}'
