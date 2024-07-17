@@ -47,32 +47,32 @@ jobs:
         if: github.ref_name == 'dev'
         run: |
           cd terraform
-          terraform plan -var-file=dev.tfvars 
+          terraform plan -var-file=env/dev.tfvars 
 
       - name: Terraform plan
         if: github.ref_name == 'main'
         run: |
           cd terraform
-          terraform plan -var-file=prod.tfvars
+          terraform plan -var-file=env/prod.tfvars
         
       - name: Apply Terraform Changes
         if: github.ref_name == 'dev'
         run: |
           cd terraform
-          terraform apply -var-file=dev.tfvars -auto-approve
+          terraform apply -var-file=env/dev.tfvars -auto-approve
 
       - name: Apply Terraform Changes
         if: github.ref_name == 'main'
         run: |
           cd terraform
-          terraform apply -var-file=prod.tfvars -auto-approve
+          terraform apply -var-file=env/prod.tfvars -auto-approve
 
       - name: Destroy all the Terraform Resources
         # if: github.ref_name == 'dev'
         if: github.event_name == 'workflow_dispatch'
         run: |
           cd terraform
-          terraform destroy -var-file=dev.tfvars -auto-approve
+          terraform destroy -var-file=env/dev.tfvars -auto-approve
 
   build:
     runs-on: ubuntu-latest
