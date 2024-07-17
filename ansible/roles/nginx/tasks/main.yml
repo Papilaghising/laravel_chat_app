@@ -18,7 +18,7 @@
     state: present
   notify: Restart nginx
  
-- name: obtaining ssl certificate
+- name: obtaining ssl certificate for the server
   command: >
     certbot --nginx -d  {{ domain_name }} --register-unsafely-without-email --agree-tos --noninteractive --redirect
   notify: Restart nginx
