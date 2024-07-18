@@ -4,8 +4,8 @@
   gather_facts: true
 
   roles:
-    - docker
-    - nginx  
+    - nginx
+    - docker  
   vars:
     ansible_user: ubuntu
     ansible_connection: aws_ssm
