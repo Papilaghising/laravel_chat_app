@@ -1,4 +1,4 @@
-name: configure chatapp in ec2
+name: configuration of chatapp in ec2
 
 on:
   push:
@@ -68,10 +68,16 @@ jobs:
           terraform apply -var-file=env/prod.tfvars -auto-approve
 
       - name: Destroy all the Terraform Resources
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' && github.ref_name == 'dev'
         run: |
           cd terraform
           terraform destroy -var-file=env/dev.tfvars -auto-approve
+
+      - name: Destroy all the Terraform Resources
+        if: github.event_name == 'workflow_dispatch' && github.ref_name == 'main'
+        run: |
+          cd terraform
+          terraform destroy -var-file=env/prod.tfvars -auto-approve
 
   build:
     runs-on: ubuntu-latest
@@ -95,7 +101,7 @@ jobs:
           terraform init -backend-config="bucket=${{ env.backendS3Bucket }}" -backend-config="key=${{ env.backendS3StateFile }}" -backend-config="region=${{ env.AWS_REGION }}"    
 
         
-      - name: Get reousrce names from state file
+      - name: Get resources info/values from state file
         uses: mathiasvr/command-output@v1
         id: resource-names
         with:
@@ -119,11 +125,11 @@ jobs:
             ecr_name=$(terraform output --json -state=$state_file_name | jq -r '.ecr_name.value')
             echo "ecr_name=$ecr_name" >> "$GITHUB_ENV"
             
-            # Secret id 
+            # Secret id of the database
             secret_id=$(terraform output --json -state=$state_file_name | jq -r '.secret_id.value')
             echo "secret_id=$secret_id" >> "$GITHUB_ENV"
 
-      - name: retrieve secret value development server database
+      - name: retrieve secret value server database
         run: |
           password=$(aws secretsmanager get-secret-value --secret-id '${{ env.secret_id }}' --query SecretString --output text | jq -r '.password')
           echo "db_password=$password" >> "$GITHUB_ENV"
