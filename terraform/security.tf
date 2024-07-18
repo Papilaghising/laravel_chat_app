@@ -3,7 +3,7 @@ module "security_group" {
   version = "~> 4.0"
 
   name        = "${var.environment}-chatapp-sg"
-  description = "Security group for example usage with EC2 instance"
+  description = "Security group for  EC2 instance"
   vpc_id      = module.vpc.vpc_id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
