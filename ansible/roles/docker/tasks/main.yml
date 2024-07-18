@@ -55,7 +55,6 @@
     state: started
     ports:
       - "8000:8000"
-  notify: Restart nginx
   
 
 

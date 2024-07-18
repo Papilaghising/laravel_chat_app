@@ -68,7 +68,6 @@ jobs:
           terraform apply -var-file=env/prod.tfvars -auto-approve
 
       - name: Destroy all the Terraform Resources
-        # if: github.ref_name == 'dev'
         if: github.event_name == 'workflow_dispatch'
         run: |
           cd terraform
