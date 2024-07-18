@@ -199,7 +199,7 @@ jobs:
         if: github.ref_name == 'dev'
         run: |
           cd ansible
-          ansible-playbook -i inventory/dev/aws_ec2.yml playbook.yml -e '{"docker_image_tag": "${{ env.IMAGE_TAG }}", "ecr_name": "${{ env.ecr_name}}" , "domain_name": "devchatapp.sandbox.adex.ltd"}'  
+          ansible-playbook -i inventory/dev/aws_ec2.yml playbook.yml -e '{"docker_image_tag": "${{ env.IMAGE_TAG }}", "ecr_name": "${{ env.ecr_name}}" , "domain_name": "dev.chat.sandbox.adex.ltd"}'  
 
 
       - name: run ansible playbook in production environment
