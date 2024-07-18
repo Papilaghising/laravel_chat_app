@@ -27,4 +27,8 @@
   command: >
     certbot --nginx -d {{ domain_name }} --register-unsafely-without-email --agree-tos --noninteractive --redirect
   when: not ssl_cert.stat.exists
-  notify: Restart nginx
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
